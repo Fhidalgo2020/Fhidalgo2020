@@ -1,0 +1,8 @@
+Public Function SPLITTER(Str As String, Del As String, Optional Ele As Integer = 0) As String
+    Dim myArray As Variant: myArray = Split(Str, Del)
+    If UBound(myArray) > 0 Then
+        SPLITTER = Trim(myArray(Ele))
+    Else
+        SPLITTER = Trim(myArray(0))
+    End If
+End Function
