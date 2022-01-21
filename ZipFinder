@@ -1,0 +1,24 @@
+Public Function ZIPFINDER(myStr As String) As String
+' To Run me, you must enable Regular Expressions: TOOLS>REFERENCES>MICROSOFT VBSCRIPT Regular Expressions 5.5
+    Dim Str As String, regex As regExp, matches As MatchCollection, match As match
+
+    Str = myStr
+
+    Set regex = New regExp
+    regex.Pattern = "([A-Z]{2})(\s)(\d{5})(\s)([United States])"
+    regex.Global = True
+
+    If (regex.Test(Str) = True) Then
+        Set matches = regex.Execute(Str)
+
+        For Each match In matches
+            Debug.Print match.Value
+            If Len(match.Value) > 2 Then
+                ZIPFINDER = Mid(match.Value, 4, 5)
+                Exit For
+            Else
+                ZIPFINDER = "NF"
+            End If
+        Next
+    End If
+End Function
