@@ -1,0 +1,37 @@
+function EmailerMA() {
+  var mySheet = SpreadsheetApp.getActiveSheet();
+  var myRange = mySheet.getRange(1,1);
+  var myBody1 = ""
+
+  var myHeader=""
+  //******************WRITE HERE*******************//
+  //*****Write input of the Email's Header********//
+  var myHeader1 = "August, 2021 ProForma"
+  //***********************************************//
+
+  //******************WRITE HERE*******************//f
+  //*****Write input of the Email's body here *****//
+  var myBody2 = ""
+  //***********************************************//
+
+  var myBody3 = "\n\n\n\nBest,\nDFH Finance Team" + String.fromCharCode(10); 
+  var myBody = ""
+  var myEmail = ""
+  for(i = 1; i < mySheet.getLastRow();i++){
+    //******************WRITE HERE*******************//f
+    //*****Write input of the Email's body here *****//
+    myBody1 = "Hello, " + myRange.offset(i,1).getValues() + String.fromCharCode(10);
+    myBody2 = "Please see the attached pro forma for your reference. \n\n Reach us out If you have any questions, observations or feedback." + String.fromCharCode(10);
+    //***********************************************//
+    myBody = myBody1 + myBody2 + myBody3
+    var myFile1 = DriveApp.getFilesByName(myRange.offset(i,2).getValues()).next();
+    var myFile2 = DriveApp.getFilesByName(myRange.offset(i,3).getValues()).next();
+    myHeader = myHeader1 + myRange.offset(i,1).getValues();
+    myEmail = myRange.offset(i,0).getValues();
+    Logger.log(myEmail);
+    
+    MailApp.sendEmail(myEmail.toString(),myHeader, myBody, {
+      attachments: [myFile1.getAs(MimeType.MICROSOFT_EXCEL), myFile2.getAs(MimeType.PDF) ]
+    })
+  }
+}
